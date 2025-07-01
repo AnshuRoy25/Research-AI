@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ResearchAI</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/chat.css') }}">
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <div id="sidebar" class="sidebar">
+        <div class="sidebar-content">
+            <div class="sidebar-header">
+                <h2>ResearchAI</h2>
+            </div>
+            
+            <div class="sidebar-menu">
+                <div class="new-session">
+                    <button id="new-session-btn" class="new-session-btn" onclick="newsession()">
+                        <span class="btn-icon">+</span>
+                        New Session
+                    </button>
+                    <div id="session-creation-message" class="session-creation-message"> 
+                      <!-- session creation message will appear here -->
+                    </div>
+                </div>    
+                
+                <div class="sessions-list">
+                    <h3 class="sessions-title">Previous Sessions</h3>
+                    <div id="sessions-container" class="sessions-container">
+                         <div id ="sessions-container-new" class="session">
+                             <!-- New Sessions will be loaded here dynamically -->
+                         </div>
+                         <div id ="sessions-container-previous" class="session">
+                             <!-- Onload Previous Sessions will be loaded here -->
+                         </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="sidebar-footer">
+                <div class="username-display">
+                    <span class="user-icon">👤</span>
+                    <span class="username">{{ username }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chat Area -->
+    <div class="chat-container">
+
+        <!-- Chat Header -->
+        <div class="chat-header">
+            <button id="sidebar-toggle" class="sidebar-toggle-btn" onclick="toggleSidebar()">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+            <h1>ResearchAI</h1>
+        </div>
+
+        <!-- Chat Messages Area -->
+        <div class="chat-main">
+            <div id="messages" class="messages-container">
+                <!-- Messages between user and assistant will appear here -->
+            </div>
+        </div>
+
+        <!-- Chat Footer -->
+        <div class="chat-footer">
+    <div class="chat-input-row">
+        <input type="text" id="userinput" placeholder="Type your message..." class="chat-input">
+        <button onclick="send()" id="send-btn" class="send-button">Send</button>
+    </div>
+    
+    <select id="modelSelector" class="model-selector">
+        <option value="mistralai/mistral-7b-instruct:free">ResearchAI X</option>
+        <!-- <option value="gemma3:4b">Gemma</option> -->
+    </select>
+</div>
+
+    </div>
+
+    <!-- JavaScript -->
+    <script src="{{ url_for('static', filename='/js/chat.js') }}"></script>
+
+</body>
+</html>

@@ -1,0 +1,20 @@
+# Database
+pymongo
+
+# PDF Processing
+PyMuPDF
+pytesseract
+pdf2image
+
+# HTTP Requests
+requests
+
+# Environment Variables
+python-dotenv
+
+# IPFS Integration
+lighthouseweb3
+
+# System Dependencies (install separately):
+# - Tesseract OCR: https://github.com/tesseract-ocr/tesseract
+# - Poppler (for pdf2image): https://poppler.freedesktop.org/
