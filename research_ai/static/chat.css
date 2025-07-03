@@ -1,0 +1,2137 @@
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #0a0d12 0%, #12161c 50%, #0f1419 100%);
+    color: #e4e8ed;
+    min-height: 100vh;
+    min-height: 100dvh;
+    line-height: 1.6;
+    position: relative;
+    /* FIXED: Prevent body overflow */
+    overflow: hidden;
+}
+
+/* FIXED: Add mobile viewport meta tag support */
+html {
+    /* FIXED: Prevent horizontal scrolling on mobile */
+    overflow-x: hidden;
+    /* FIXED: Better mobile scrolling */
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    position: fixed;
+    left: -300px;
+    top: 0;
+    width: 300px;
+    /* FIXED: Use min-height instead of height for mobile */
+    min-height: 100vh;
+    /* FIXED: Add max-height for mobile browsers */
+    max-height: 100vh;
+    background: rgba(15, 23, 32, 0.98);
+    backdrop-filter: blur(20px);
+    border-right: 1px solid rgba(71, 85, 105, 0.2);
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+    box-shadow: 4px 0 25px rgba(0, 0, 0, 0.5);
+    transition: left 0.3s ease;
+    /* FIXED: Add overflow handling for mobile */
+    overflow-y: auto;
+    /* FIXED: Add safe area support for notched devices */
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+}
+
+.sidebar.open {
+    left: 0;
+}
+
+.sidebar-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 1.5rem;
+    overflow-x: hidden;
+    /* FIXED: Ensure content doesn't overflow on mobile */
+    min-height: 0;
+}
+
+.sidebar-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(71, 85, 105, 0.2);
+    overflow: hidden;
+    /* FIXED: Prevent text overflow on small screens */
+    word-wrap: break-word;
+}
+
+.sidebar-header h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #f8fafc;
+    letter-spacing: 0.5px;
+    font-style: italic;
+}
+
+.sidebar-menu {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    /* FIXED: Ensure proper flex behavior on mobile */
+    min-height: 0;
+}
+
+/* New Session Button */
+.new-session {
+    margin-bottom: 2rem;
+    /* FIXED: Prevent button from being cut off */
+    flex-shrink: 0;
+}
+
+.new-session-btn {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    color: #f1f5f9;
+    border: 1px solid rgba(71, 85, 105, 0.3);
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    /* FIXED: Ensure button is tappable on mobile */
+    min-height: 44px;
+}
+
+.new-session-btn:hover:not(:disabled) {
+    background: linear-gradient(135deg, #334155 0%, #1e293b 100%);
+    border-color: rgba(71, 85, 105, 0.5);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    transform: translateY(-2px);
+}
+
+.new-session-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.btn-icon {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.session-creation-message {
+    margin-top: 0.75rem;
+    padding: 0.75rem;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    text-align: center;
+    background: rgba(71, 85, 105, 0.15);
+    border: 1px solid rgba(71, 85, 105, 0.3);
+    color: #cbd5e1;
+    min-height: 20px;
+    transition: all 0.3s ease;
+    opacity: 0;
+    /* FIXED: Prevent message from being cut off */
+    flex-shrink: 0;
+}
+
+.session-creation-message.show {
+    opacity: 1;
+}
+
+.session-creation-message.success {
+    background: rgba(34, 197, 94, 0.15);
+    border-color: rgba(34, 197, 94, 0.3);
+    color: #4ade80;
+}
+
+.session-creation-message.error {
+    background: rgba(239, 68, 68, 0.15);
+    border-color: rgba(239, 68, 68, 0.3);
+    color: #f87171;
+}
+
+.session-creation-message.info {
+    background: rgba(71, 85, 105, 0.15);
+    border-color: rgba(71, 85, 105, 0.3);
+    color: #cbd5e1;
+}
+
+/* Sessions List */
+.sessions-list {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    /* FIXED: Ensure proper scrolling on mobile */
+    min-height: 0;
+}
+
+.sessions-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #94a3b8;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(71, 85, 105, 0.15);
+    /* FIXED: Prevent title from being cut off */
+    flex-shrink: 0;
+}
+
+.sessions-container {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(71, 85, 105, 0.4) transparent;
+    /* FIXED: Better mobile scrolling */
+    -webkit-overflow-scrolling: touch;
+}
+
+.sessions-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sessions-container::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.sessions-container::-webkit-scrollbar-thumb {
+    background: rgba(71, 85, 105, 0.4);
+    border-radius: 3px;
+}
+
+.sessions-container::-webkit-scrollbar-thumb:hover {
+    background: rgba(71, 85, 105, 0.6);
+}
+
+.session {
+    margin-bottom: 0.5rem;
+}
+
+.session button {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    background: rgba(30, 41, 59, 0.6);
+    color: #e2e8f0;
+    border: 1px solid rgba(71, 85, 105, 0.15);
+    border-radius: 6px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+    box-sizing: border-box;
+    /* FIXED: Ensure buttons are tappable on mobile */
+    min-height: 44px;
+}
+
+.session button:hover {
+    background: rgba(51, 65, 85, 0.8);
+    border-color: rgba(71, 85, 105, 0.4);
+    color: #f1f5f9;
+    transform: translateX(4px);
+}
+
+.session button:active {
+    background: rgba(71, 85, 105, 0.3);
+}
+
+/* Sidebar Footer */
+.sidebar-footer {
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(71, 85, 105, 0.2);
+    margin-top: auto;
+    /* FIXED: Prevent footer from being cut off */
+    flex-shrink: 0;
+}
+
+.username-display {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    background: rgba(30, 41, 59, 0.6);
+    border-radius: 8px;
+    border: 1px solid rgba(71, 85, 105, 0.15);
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.user-icon {
+    font-size: 1.2rem;
+    color: #cbd5e1;
+}
+
+.username {
+    font-weight: 500;
+    color: #f1f5f9;
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+}
+
+/* Chat Container */
+.chat-container {
+    margin-left: 0;
+    height: 100vh;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    background: rgba(12, 20, 28, 0.8);
+    transition: margin-left 0.3s ease;
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    /* FIXED: Prevent container overflow */
+    overflow: hidden;
+}
+
+.chat-container.sidebar-open {
+    margin-left: 300px;
+}
+
+/* Chat Header */
+.chat-header {
+    padding: 1.5rem 2rem;
+    background: rgba(15, 23, 32, 0.95);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(71, 85, 105, 0.2);
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    /* FIXED: Prevent header from shrinking */
+    flex-shrink: 0;
+    /* FIXED: Ensure proper stacking on mobile */
+    position: relative;
+    z-index: 10;
+}
+
+.chat-header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #f8fafc;
+    letter-spacing: 0.5px;
+    font-style: italic;
+    /* FIXED: Prevent text overflow on small screens */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Chat Main Area */
+.chat-main {
+    flex: 1;
+    overflow-y: auto;
+    padding: 2rem;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(71, 85, 105, 0.4) transparent;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    /* FIXED: Ensure proper flex behavior and height calculation */
+    min-height: 0;
+    height: 0; /* This forces flex to calculate properly */
+}
+
+.chat-main::-webkit-scrollbar {
+    width: 8px;
+}
+
+.chat-main::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.chat-main::-webkit-scrollbar-thumb {
+    background: rgba(71, 85, 105, 0.4);
+    border-radius: 4px;
+}
+
+.chat-main::-webkit-scrollbar-thumb:hover {
+    background: rgba(71, 85, 105, 0.6);
+}
+
+.messages-container {
+    max-width: 100%;
+    margin: 0;
+    padding: 0 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    /* FIXED: Ensure container can grow properly */
+    min-height: min-content;
+}
+
+/* Message Styles */
+.message {
+    display: flex;
+    margin-bottom: 1rem;
+    animation: fadeInUp 0.4s ease-out;
+    /* FIXED: Prevent messages from overflowing */
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.message.user {
+    justify-content: flex-end;
+    width: 100%;
+}
+
+.message.ai {
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.message-content {
+    max-width: 70%;
+    padding: 1rem 1.25rem;
+    border-radius: 18px;
+    line-height: 1.6;
+    word-wrap: break-word;
+    position: relative;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+    /* FIXED: Better text wrapping on mobile */
+    overflow-wrap: break-word;
+    hyphens: auto;
+}
+
+/* User Messages (Right side) */
+.message.user .message-content {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    color: #f1f5f9;
+    border: 1px solid rgba(71, 85, 105, 0.3);
+    border-bottom-right-radius: 4px;
+    margin-left: auto;
+    margin-right: 0;
+}
+
+.message.user .message-content::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: -8px;
+    width: 0;
+    height: 0;
+    border: 8px solid transparent;
+    border-left-color: #0f172a;
+    border-bottom: none;
+    transform: translateY(0);
+}
+
+/* AI Messages (Left side) */
+.message.ai .message-content {
+    background: rgba(30, 41, 59, 0.9);
+    color: #f1f5f9;
+    border: 1px solid rgba(71, 85, 105, 0.2);
+    border-bottom-left-radius: 4px;
+    margin-left: 0;
+    margin-right: auto;
+}
+
+.message.ai .message-content::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: -9px;
+    width: 0;
+    height: 0;
+    border: 8px solid transparent;
+    border-right-color: rgba(30, 41, 59, 0.9);
+    border-bottom: none;
+    transform: translateY(0);
+}
+
+.message-sender {
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    opacity: 0.8;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.message-text {
+    font-size: 1rem;
+    line-height: 1.5;
+    /* FIXED: Better text handling on mobile */
+    word-break: break-word;
+}
+
+/* Chat Footer */
+.chat-footer {
+    padding: 1.5rem 2rem;
+    background: rgba(15, 23, 32, 0.98);
+    backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(71, 85, 105, 0.2);
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.3);
+    flex-shrink: 0;
+    /* FIXED: Use relative positioning instead of sticky */
+    position: relative;
+    z-index: 10;
+}
+
+.chat-input {
+    flex: 1;
+    padding: 1rem 1.25rem;
+    font-size: 1rem;
+    background: rgba(30, 41, 59, 0.8);
+    border: 1px solid rgba(71, 85, 105, 0.2);
+    border-radius: 12px;
+    color: #f1f5f9;
+    transition: all 0.3s ease;
+    outline: none;
+    resize: none;
+    max-height: 120px;
+    min-height: 50px;
+    /* FIXED: Ensure input is accessible on mobile */
+    -webkit-appearance: none;
+appearance: none;
+    /* FIXED: Prevent zoom on iOS */
+    font-size: 16px;
+}
+
+.chat-input:focus {
+    border-color: rgba(71, 85, 105, 0.5);
+    box-shadow: 0 0 0 3px rgba(71, 85, 105, 0.15);
+    background: rgba(30, 41, 59, 0.95);
+}
+
+.chat-input::placeholder {
+    color: rgba(148, 163, 184, 0.6);
+}
+
+.send-button {
+    padding: 1rem 2rem;
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    color: #f1f5f9;
+    border: 1px solid rgba(71, 85, 105, 0.3);
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    min-width: 100px;
+    /* FIXED: Ensure button is tappable on mobile */
+    min-height: 44px;
+}
+
+.send-button:hover:not(:disabled) {
+    background: linear-gradient(135deg, #334155 0%, #1e293b 100%);
+    border-color: rgba(71, 85, 105, 0.5);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    transform: translateY(-2px);
+}
+
+.send-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.model-selector {
+    padding: 1rem;
+    background: rgba(30, 41, 59, 0.8);
+    border: 1px solid rgba(71, 85, 105, 0.2);
+    border-radius: 8px;
+    color: #f1f5f9;
+    font-size: 0.9rem;
+    font-style: italic;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    outline: none;
+    min-width: 150px;
+    /* FIXED: Ensure selector is accessible on mobile */
+    -webkit-appearance: none;
+appearance: none;
+    /* FIXED: Prevent zoom on iOS */
+    font-size: 16px;
+}
+
+.model-selector:focus {
+    border-color: rgba(71, 85, 105, 0.5);
+    box-shadow: 0 0 0 3px rgba(71, 85, 105, 0.15);
+}
+
+.model-selector option {
+    background: #0f172a;
+    color: #f1f5f9;
+    padding: 0.5rem;
+}
+
+/* Loading States */
+.send-button:disabled,
+.new-session-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+.loading {
+    position: relative;
+    color: transparent !important;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    border: 2px solid transparent;
+    border-top: 2px solid currentColor;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes spin {
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+/* Focus States for Accessibility */
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 2px solid rgba(71, 85, 105, 0.6);
+    outline-offset: 2px;
+}
+
+/* Smooth transitions for all interactive elements */
+input, button, select, textarea, .session button, .session-creation-message {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Enhanced glassmorphism effects */
+.sidebar::before,
+.chat-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.01) 0%, rgba(255, 255, 255, 0.005) 100%);
+    pointer-events: none;
+}
+
+/* Empty state */
+.empty-state {
+    text-align: center;
+    color: rgba(148, 163, 184, 0.7);
+    padding: 3rem 2rem;
+    font-style: italic;
+}
+
+.empty-state h3 {
+    color: #f1f5f9;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.empty-state p {
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* Sidebar Toggle Button */
+.sidebar-toggle-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    margin-right: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    transition: all 0.3s ease;
+    border-radius: 4px;
+    /* FIXED: Ensure button is tappable on mobile */
+    min-width: 44px;
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
+}
+
+.sidebar-toggle-btn:hover {
+    background: rgba(71, 85, 105, 0.2);
+}
+
+.hamburger-line {
+    width: 24px;
+    height: 3px;
+    background: #f1f5f9;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+.sidebar-toggle-btn.active .hamburger-line:nth-child(1) {
+    transform: rotate(45deg) translate(6px, 6px);
+}
+
+.sidebar-toggle-btn.active .hamburger-line:nth-child(2) {
+    opacity: 0;
+}
+
+.sidebar-toggle-btn.active .hamburger-line:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* Desktop: Hide the wrapper div effect */
+@media screen and (min-width: 769px) {
+    .chat-input-row {
+        display: contents;
+    }
+}
+
+/* Mobile Responsive Styles */
+@media screen and (max-width: 768px) {
+    /* FIXED: Better mobile body handling */
+    body {
+        /* FIXED: Use 100dvh for better mobile support */
+        min-height: 100dvh;
+    }
+    
+    /* Sidebar adjustments for mobile */
+    .sidebar {
+        width: 280px;
+        left: -280px;
+        /* FIXED: Better mobile height handling */
+        height: 100vh;
+        height: 100dvh;
+        max-height: none;
+    }
+    
+    .sidebar-content {
+        padding: 1rem;
+    }
+    
+    .sidebar-header h2 {
+        font-size: 1.5rem;
+    }
+    
+    /* Chat container adjustments */
+    .chat-container {
+        margin-left: 0;
+        height: 100vh;
+        height: 100dvh;
+        /* FIXED: Ensure proper overflow handling */
+        overflow: hidden;
+    }
+    
+    .chat-container.sidebar-open {
+        margin-left: 0;
+    }
+    
+    /* Chat header mobile adjustments */
+    .chat-header {
+        padding: 1rem;
+        /* FIXED: Add proper mobile header height */
+        min-height: 60px;
+    }
+    
+    .chat-header h1 {
+        font-size: 1.5rem;
+    }
+    
+    /* Chat main area mobile adjustments */
+    .chat-main {
+        padding: 1rem;
+        /* FIXED: Better mobile scroll handling */
+        overflow-x: hidden;
+    }
+    
+    .messages-container {
+        padding: 0;
+    }
+    
+    /* Message adjustments for mobile */
+    .message-content {
+        max-width: 85%;
+        padding: 0.875rem 1rem;
+        font-size: 0.9rem;
+    }
+    
+    /* FIXED: Chat footer mobile adjustments - completely rewritten */
+    .chat-footer {
+        padding: 1rem;
+        flex-direction: column;
+        gap: 0.75rem;
+        /* FIXED: Add proper mobile footer height */
+        min-height: auto;
+        /* FIXED: Ensure footer is always visible */
+        position: relative;
+        bottom: 0;
+    }
+
+    /* Create input row wrapper only on mobile */
+    .chat-input-row {
+        display: flex;
+        gap: 0.75rem;
+        width: 100%;
+        align-items: flex-end;
+    }
+
+    /* Adjust input and button within the row on mobile */
+    .chat-input-row .chat-input {
+        flex: 1;
+        /* FIXED: Prevent zoom on mobile */
+        font-size: 16px;
+        padding: 0.875rem 1rem;
+        min-height: 44px;
+    }
+
+    .chat-input-row .send-button {
+        width: auto;
+        min-width: 80px;
+        padding: 0.875rem 1.5rem;
+        font-size: 0.9rem;
+        min-height: 44px;
+    }
+
+    /* Model selector stays full width below */
+    .model-selector {
+        width: 100%;
+        padding: 0.875rem;
+        /* FIXED: Prevent zoom on mobile */
+        font-size: 16px;
+        min-height: 44px;
+    }
+    
+    /* Sidebar overlay for mobile */
+    .sidebar.open {
+        left: 0;
+        z-index: 1001;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    }
+    
+    /* Add overlay behind sidebar when open on mobile */
+    .sidebar.open::after {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 280px;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: -1;
+    }
+    
+    /* Username display mobile adjustments */
+    .username-display {
+        padding: 0.75rem;
+        font-size: 0.9rem;
+    }
+    
+    /* Session buttons mobile adjustments */
+    .session button {
+        padding: 0.75rem;
+        font-size: 0.85rem;
+        min-height: 44px;
+    }
+    
+    .new-session-btn {
+        padding: 0.875rem 1.25rem;
+        font-size: 0.9rem;
+        min-height: 44px;
+    }
+    
+    /* Hamburger button adjustments */
+    .hamburger-line {
+        width: 20px;
+        height: 2px;
+    }
+    
+    /* Empty state mobile adjustments */
+    .empty-state {
+        padding: 2rem 1rem;
+    }
+    
+    .empty-state h3 {
+        font-size: 1.25rem;
+    }
+    
+    .empty-state p {
+        font-size: 0.9rem;
+    }
+}
+
+/* Extra small mobile devices */
+@media screen and (max-width: 480px) {
+    .sidebar {
+        width: 260px;
+        left: -260px;
+    }
+    
+    .sidebar.open::after {
+        left: 260px;
+    }
+    
+    .chat-header {
+        padding: 0.75rem;
+        min-height: 56px;
+    }
+    
+    .chat-header h1 {
+        font-size: 1.25rem;
+    }
+    
+    .chat-main {
+        padding: 0.75rem;
+    }
+    
+    .chat-footer {
+        padding: 0.75rem;
+    }
+    
+    .message-content {
+        max-width: 90%;
+        padding: 0.75rem;
+        font-size: 0.85rem;
+    }
+    
+    .hamburger-line {
+        width: 18px;
+    }
+}
+
+/* Landscape orientation adjustments */
+@media screen and (max-width: 768px) and (orientation: landscape) {
+    /* FIXED: Better landscape handling */
+    body {
+        min-height: 100vh;
+        min-height: 100dvh;
+    }
+    
+    .sidebar {
+        /* FIXED: Adjust sidebar for landscape */
+        height: 100vh;
+        height: 100dvh;
+    }
+    
+    .chat-container {
+        min-height: 100vh;
+        min-height: 100dvh;
+    }
+    
+    .chat-main {
+        padding: 0.75rem;
+    }
+    
+    .chat-header {
+        padding: 0.75rem 1rem;
+        min-height: 50px;
+    }
+    
+    .chat-footer {
+        padding: 0.75rem 1rem;
+        min-height: auto;
+    }
+    
+    /* FIXED: Adjust message sizing for landscape */
+    .message-content {
+        max-width: 80%;
+        font-size: 0.9rem;
+    }
+}
+
+/* Touch-friendly improvements */
+@media (hover: none) and (pointer: coarse) {
+    /* FIXED: Remove hover transforms on touch devices */
+    .session button:hover {
+        transform: none;
+        background: rgba(51, 65, 85, 0.8);
+    }
+    
+    .send-button:hover:not(:disabled) {
+        transform: none;
+        background: linear-gradient(135deg, #334155 0%, #1e293b 100%);
+    }
+    
+    .new-session-btn:hover:not(:disabled) {
+        transform: none;
+        background: linear-gradient(135deg, #334155 0%, #1e293b 100%);
+    }
+    
+    .sidebar-toggle-btn:hover {
+        background: rgba(71, 85, 105, 0.2);
+    }
+}
+
+/* FIXED: iOS Safari specific fixes */
+@supports (-webkit-touch-callout: none) {
+    body {
+        /* FIXED: iOS Safari viewport fix */
+        min-height: -webkit-fill-available;
+    }
+    
+    .sidebar {
+        height: -webkit-fill-available;
+        max-height: -webkit-fill-available;
+    }
+    
+    .chat-container {
+        min-height: -webkit-fill-available;
+    }
+}
+
+/* FIXED: Prevent zoom on input focus for iOS */
+@media screen and (max-width: 768px) {
+    input, select, textarea {
+        font-size: 16px !important;
+        -webkit-appearance: none;
+appearance: none;
+        -webkit-border-radius: 0;
+        border-radius: 0;
+    }
+    
+    .chat-input {
+        font-size: 16px !important;
+        -webkit-appearance: none;
+appearance: none;
+    }
+    
+    .model-selector {
+        font-size: 16px !important;
+       -webkit-appearance: none;
+appearance: none;
+    }
+}
+
+/* FIXED: Handle notch devices and safe areas */
+@supports (padding: max(0px)) {
+    .sidebar {
+        padding-top: max(env(safe-area-inset-top), 0px);
+        padding-bottom: max(env(safe-area-inset-bottom), 0px);
+        padding-left: max(env(safe-area-inset-left), 0px);
+    }
+    
+    .chat-container {
+        padding-top: max(env(safe-area-inset-top), 0px);
+        padding-bottom: max(env(safe-area-inset-bottom), 0px);
+        padding-right: max(env(safe-area-inset-right), 0px);
+    }
+    
+    .chat-header {
+        padding-top: max(1.5rem, env(safe-area-inset-top) + 1rem);
+    }
+    
+    .chat-footer {
+        padding-bottom: max(1.5rem, env(safe-area-inset-bottom) + 1rem);
+    }
+}
+
+/* FIXED: Prevent content jumping during keyboard appearance on mobile */
+@media screen and (max-width: 768px) {
+    .chat-container {
+        /* FIXED: Prevent viewport changes on keyboard */
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .chat-main {
+        /* FIXED: Maintain scroll position */
+        scroll-behavior: smooth;
+        overscroll-behavior: contain;
+    }
+    
+
+}
+
+/* FIXED: Handle very small screens (iPhone SE, etc.) */
+@media screen and (max-width: 375px) {
+    .sidebar {
+        width: 250px;
+        left: -250px;
+    }
+    
+    .sidebar.open::after {
+        left: 250px;
+    }
+    
+    .sidebar-content {
+        padding: 0.75rem;
+    }
+    
+    .chat-header {
+        padding: 0.5rem;
+        min-height: 50px;
+    }
+    
+    .chat-header h1 {
+        font-size: 1.1rem;
+    }
+    
+    .chat-main {
+        padding: 0.5rem;
+    }
+    
+    .chat-footer {
+        padding: 0.5rem;
+    }
+    
+    .chat-input-row .chat-input {
+        padding: 0.75rem;
+        min-height: 40px;
+    }
+    
+    .chat-input-row .send-button {
+        padding: 0.75rem 1rem;
+        min-height: 40px;
+        font-size: 0.8rem;
+    }
+    
+    .model-selector {
+        padding: 0.75rem;
+        min-height: 40px;
+    }
+    
+    .message-content {
+        max-width: 95%;
+        padding: 0.5rem 0.75rem;
+        font-size: 0.8rem;
+    }
+}
+
+/* FIXED: High DPI display adjustments */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .hamburger-line {
+        /* FIXED: Sharper lines on high DPI */
+        height: 2px;
+    }
+    
+    .sidebar,
+    .chat-header,
+    .chat-footer {
+        /* FIXED: Sharper borders on high DPI */
+        border-width: 0.5px;
+    }
+}
+
+/* FIXED: Prevent text selection issues on mobile */
+@media (hover: none) and (pointer: coarse) {
+    .sidebar-toggle-btn,
+    .send-button,
+    .new-session-btn,
+    .session button {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
+    }
+}
+
+/* FIXED: Dark mode considerations for mobile browsers */
+@media (prefers-color-scheme: dark) {
+    /* Ensure consistent dark theme */
+    body {
+        color-scheme: dark;
+    }
+    
+    .chat-input,
+    .model-selector {
+        color-scheme: dark;
+    }
+}
+
+/* FIXED: Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    
+    .sidebar {
+        transition: none;
+    }
+    
+    .chat-container {
+        transition: none;
+    }
+}
+
+/* FIXED: Print styles to prevent issues */
+@media print {
+    .sidebar,
+    .sidebar-toggle-btn,
+    .chat-footer {
+        display: none !important;
+    }
+    
+    .chat-container {
+        margin-left: 0 !important;
+    }
+    
+    .message-content {
+        max-width: 100% !important;
+        box-shadow: none !important;
+    }
+}
+
+/* Verify button container */
+.verify-button-container {
+    margin-top: 8px;
+    padding-top: 8px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+/* Verify button styling - Enhanced visibility */
+.verify-button {
+    background: linear-gradient(135deg, #475569 0%, #334155 100%);
+    color: #f8fafc;
+    border: 1px solid rgba(148, 163, 184, 0.4);
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.4), 0 1px 4px rgba(148, 163, 184, 0.1);
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(15px);
+    min-height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Enhanced glassmorphism effect with better visibility */
+.verify-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.04) 100%);
+    pointer-events: none;
+    border-radius: 8px;
+}
+
+/* Hover animation shimmer */
+.verify-button::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(148, 163, 184, 0.2), transparent);
+    transition: left 0.5s ease;
+    border-radius: 8px;
+}
+
+.verify-button:hover {
+    background: linear-gradient(135deg, #64748b 0%, #475569 100%);
+    border-color: rgba(148, 163, 184, 0.6);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(148, 163, 184, 0.2);
+    transform: translateY(-2px);
+    color: #ffffff;
+}
+
+.verify-button:hover::after {
+    left: 100%;
+}
+
+.verify-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4), 0 1px 4px rgba(148, 163, 184, 0.1);
+    background: linear-gradient(135deg, #5b6b7d 0%, #475569 100%);
+}
+
+.verify-button:focus {
+    outline: none;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.4), 0 0 0 3px rgba(148, 163, 184, 0.4);
+}
+
+/* Focus states for accessibility */
+.verify-button:focus-visible {
+    outline: 2px solid rgba(148, 163, 184, 0.7);
+    outline-offset: 2px;
+}
+
+/* Loading state (if needed) */
+.verify-button.loading {
+    color: transparent !important;
+}
+
+.verify-button.loading::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 16px;
+    height: 16px;
+    border: 2px solid transparent;
+    border-top: 2px solid #f1f5f9;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    z-index: 1;
+}
+
+@keyframes spin {
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+/* Disabled state */
+.verify-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+.verify-button:disabled:hover {
+    background: linear-gradient(135deg, #475569 0%, #334155 100%);
+    border-color: rgba(148, 163, 184, 0.4);
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.4), 0 1px 4px rgba(148, 163, 184, 0.1);
+    transform: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .verify-button {
+        font-size: 11px;
+        padding: 6px 12px;
+        min-height: 32px;
+    }
+    
+    .verify-button-container {
+        margin-top: 6px;
+        padding-top: 6px;
+    }
+}
+
+/* Extra small screens */
+@media (max-width: 480px) {
+    .verify-button {
+        font-size: 10px;
+        padding: 5px 10px;
+        min-height: 28px;
+    }
+}
+
+/* Touch-friendly improvements for mobile */
+@media (hover: none) and (pointer: coarse) {
+    .verify-button:hover {
+        transform: none;
+        background: linear-gradient(135deg, #64748b 0%, #475569 100%);
+    }
+    
+    .verify-button {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
+    }
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+    .verify-button,
+    .verify-button::after {
+        transition: none !important;
+        animation: none !important;
+    }
+    
+    .verify-button:hover {
+        transform: none;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .verify-button {
+        border-width: 2px;
+        border-color: #94a3b8;
+    }
+    
+    .verify-button:focus {
+        outline: 3px solid #f1f5f9;
+        outline-offset: 2px;
+    }
+}
+
+/* Logo styles for header */
+.chat-header {
+    padding: 1.5rem 2rem;
+    background: rgba(15, 23, 32, 0.95);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(71, 85, 105, 0.2);
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Changed from default to space-between */
+    flex-shrink: 0;
+    position: relative;
+    z-index: 10;
+}
+
+/* Logo container */
+.header-logo {
+    display: flex;
+    align-items: center;
+    margin-left: auto; /* Pushes logo to the right */
+}
+
+/* Logo image styling */
+.header-logo img {
+    height: 40px; /* Adjust height as needed */
+    width: auto;
+    max-height: 50px;
+    object-fit: contain;
+    filter: brightness(1.1) contrast(1.1); /* Slight enhancement for dark theme */
+    transition: all 0.3s ease;
+}
+
+/* Optional hover effect for logo */
+.header-logo img:hover {
+    filter: brightness(1.2) contrast(1.2);
+    transform: scale(1.05);
+}
+
+/* Left side of header (hamburger + title) */
+.header-left {
+    display: flex;
+    align-items: center;
+    flex: 1;
+}
+
+/* Mobile responsive adjustments */
+@media screen and (max-width: 768px) {
+    .chat-header {
+        padding: 1rem;
+        min-height: 60px;
+    }
+    
+    .header-logo img {
+        height: 32px;
+        max-height: 36px;
+    }
+    
+    .chat-header h1 {
+        font-size: 1.5rem;
+        margin-right: 1rem; /* Add space between title and logo */
+    }
+}
+
+/* Extra small mobile devices */
+@media screen and (max-width: 480px) {
+    .chat-header {
+        padding: 0.75rem;
+        min-height: 56px;
+    }
+    
+    .header-logo img {
+        height: 28px;
+        max-height: 32px;
+    }
+    
+    .chat-header h1 {
+        font-size: 1.25rem;
+    }
+}
+
+/* Very small screens */
+@media screen and (max-width: 375px) {
+    .chat-header {
+        padding: 0.5rem;
+        min-height: 50px;
+    }
+    
+    .header-logo img {
+        height: 24px;
+        max-height: 28px;
+    }
+    
+    .chat-header h1 {
+        font-size: 1.1rem;
+    }
+}
+/* Enhanced Payment Modal Styles - Aligned with Login Theme */
+
+/* ============================================
+   MODAL OVERLAY & CONTAINER
+   ============================================ */
+
+.payment-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 1rem;
+}
+
+.modal-content {
+    background: rgba(15, 23, 32, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(71, 85, 105, 0.2);
+    border-radius: 16px;
+    padding: 2rem 2.5rem;
+    max-width: 650px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    position: relative;
+    animation: modalSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+}
+
+/* Glass morphism enhancement */
+.modal-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.01) 0%, rgba(255, 255, 255, 0.005) 100%);
+    border-radius: 16px;
+    pointer-events: none;
+}
+
+/* ============================================
+   TYPOGRAPHY & CONTENT STRUCTURE
+   ============================================ */
+
+.modal-content h3 {
+    margin: 0 0 1rem 0;
+    color: #f8fafc;
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    background: linear-gradient(135deg, #f8fafc 0%, #e4e8ed 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: relative;
+    z-index: 1;
+    
+}
+
+.modal-content p {
+    color: #94a3b8;
+    margin: 0 0 1.5rem 0;
+    line-height: 1.6;
+    font-size: 1.1rem;
+    font-weight: 400;
+    position: relative;
+    z-index: 1;
+}
+
+.modal-content p:first-of-type {
+    font-size: 1rem;
+    color: #e4e8ed;
+    font-weight: 200;
+    margin-bottom: 1rem;
+}
+
+.modal-content p small {
+    color: #94a3b8;
+    font-size: 0.875rem;
+    display: block;
+    margin-top: 0.75rem;
+    opacity: 0.9;
+    font-style: italic;
+}
+
+/* ============================================
+   VERIFICATION BENEFITS SECTION
+   ============================================ */
+
+.verification-benefits {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+    padding: 1.5rem;
+    background: rgba(30, 41, 59, 0.8);
+    border-radius: 12px;
+    border: 1px solid rgba(71, 85, 105, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.verification-benefits::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(71, 85, 105, 0.05) 0%, rgba(30, 41, 59, 0.02) 100%);
+    border-radius: 12px;
+    pointer-events: none;
+}
+
+.benefit-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: #e4e8ed;
+    font-size: 0.95rem;
+    font-weight: 400;
+    position: relative;
+    z-index: 1;
+    padding: 0.5rem;
+    border-left: 3px solid rgba(71, 85, 105, 0.3);
+    padding-left: 1rem;
+    transition: all 0.3s ease;
+}
+
+.benefit-item:hover {
+    border-left-color: rgba(71, 85, 105, 0.6);
+    color: #f1f5f9;
+    transform: translateX(2px);
+}
+
+
+
+/* ============================================
+   PRICE HIGHLIGHT SECTION
+   ============================================ */
+
+.price-highlight {
+    display: inline-block;
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    color: #f1f5f9;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 1.1rem;
+    border: 1px solid rgba(71, 85, 105, 0.3);
+    margin: 0 0.5rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.price-highlight:hover {
+    border-color: rgba(71, 85, 105, 0.5);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    transform: translateY(-1px);
+}
+
+/* ============================================
+   BUTTON STYLES
+   ============================================ */
+
+.modal-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+    position: relative;
+    z-index: 1;
+}
+
+.pay-button, 
+.cancel-button {
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    outline: none;
+    position: relative;
+    overflow: hidden;
+    min-width: 140px;
+    touch-action: manipulation;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+/* Primary button (Pay & Verify) */
+.pay-button {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    color: #f1f5f9;
+    border: 1px solid rgba(71, 85, 105, 0.3);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.pay-button:hover:not(:disabled),
+.pay-button:focus:not(:disabled) {
+    background: linear-gradient(135deg, #334155 0%, #1e293b 100%);
+    border-color: rgba(71, 85, 105, 0.5);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    transform: translateY(-2px);
+}
+
+.pay-button:active:not(:disabled) {
+    transform: translateY(0);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.pay-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+/* Secondary button (Cancel) */
+.cancel-button {
+    background: rgba(30, 41, 59, 0.6);
+    color: #e2e8f0;
+    border: 1px solid rgba(71, 85, 105, 0.15);
+}
+
+.cancel-button:hover,
+.cancel-button:focus {
+    background: rgba(51, 65, 85, 0.8);
+    border-color: rgba(71, 85, 105, 0.4);
+    color: #f1f5f9;
+    transform: translateY(-2px);
+}
+
+.cancel-button:active {
+    transform: translateY(0);
+}
+
+/* ============================================
+   LOADING STATES
+   ============================================ */
+
+.pay-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+.pay-button.loading {
+    position: relative;
+    color: transparent;
+    pointer-events: none;
+}
+
+.pay-button.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    border: 2px solid transparent;
+    border-top: 2px solid #f1f5f9;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* ============================================
+   VERIFY BUTTON STYLES
+   ============================================ */
+
+.verify-button {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    color: #f1f5f9;
+    border: 1px solid rgba(71, 85, 105, 0.3);
+    padding: 0.75rem 1.25rem;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    outline: none;
+    touch-action: manipulation;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.verify-button:hover,
+.verify-button:focus {
+    background: linear-gradient(135deg, #334155 0%, #1e293b 100%);
+    border-color: rgba(71, 85, 105, 0.5);
+    color: #f1f5f9;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.verify-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.verify-button.paid {
+    background: linear-gradient(135deg, #065f46 0%, #047857 100%);
+    color: #ffffff;
+    border-color: rgba(110, 231, 183, 0.3);
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2);
+}
+
+.verify-button.paid:hover,
+.verify-button.paid:focus {
+    background: linear-gradient(135deg, #047857 0%, #059669 100%);
+    border-color: rgba(110, 231, 183, 0.5);
+    color: #a7f3d0;
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);
+}
+
+.verify-button-container {
+    margin-top: 1.5rem;
+    text-align: right;
+}
+
+/* ============================================
+   NOTIFICATION STYLES
+   ============================================ */
+
+.error-message,
+.success-message {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    z-index: 1100;
+    max-width: 350px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    animation: slideInRight 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-weight: 500;
+    line-height: 1.6;
+    word-wrap: break-word;
+    hyphens: auto;
+}
+
+.error-message {
+    background: rgba(239, 68, 68, 0.15);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    color: #f87171;
+}
+
+.success-message {
+    background: rgba(34, 197, 94, 0.15);
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    color: #4ade80;
+}
+
+.error-content,
+.success-content {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.error-icon,
+.success-icon {
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.error-text,
+.success-text {
+    font-weight: 500;
+    line-height: 1.6;
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideOutRight {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+}
+
+@keyframes spin {
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+/* Mobile phones */
+@media (max-width: 480px) {
+    .payment-modal {
+        padding: 0.5rem;
+        align-items: flex-start;
+        padding-top: 2rem;
+    }
+    
+    .modal-content {
+        padding: 1.5rem;
+        max-width: none;
+        width: 100%;
+        border-radius: 12px;
+    }
+    
+    .modal-content h3 {
+        font-size: 1.5rem;
+    }
+    
+    .modal-content p {
+        font-size: 1rem;
+    }
+    
+    .verification-benefits {
+        grid-template-columns: 1fr;
+        margin: 1rem 0;
+        padding: 1rem;
+    }
+    
+    .benefit-item {
+        font-size: 0.9rem;
+        padding: 0.375rem 0;
+    }
+    
+    .modal-buttons {
+        flex-direction: column;
+        gap: 0.75rem;
+        margin-top: 1.5rem;
+    }
+    
+    .pay-button, 
+    .cancel-button {
+        padding: 0.875rem 1.5rem;
+        font-size: 16px; /* Prevent zoom on iOS */
+        min-width: auto;
+    }
+    
+    .price-highlight {
+        font-size: 1rem;
+        padding: 0.375rem 0.75rem;
+    }
+    
+    .error-message,
+    .success-message {
+        top: 10px;
+        right: 10px;
+        left: 10px;
+        max-width: none;
+        font-size: 0.9rem;
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 320px) {
+    .modal-content {
+        padding: 1.25rem;
+    }
+    
+    .modal-content h3 {
+        font-size: 1.375rem;
+    }
+    
+    .verification-benefits {
+        padding: 1rem;
+    }
+}
+
+/* Landscape orientation on mobile */
+@media (max-height: 600px) and (orientation: landscape) {
+    .payment-modal {
+        padding: 1rem;
+        align-items: center;
+    }
+    
+    .modal-content {
+        padding: 1.5rem;
+        max-height: 90vh;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .modal-content h3 {
+        font-size: 1.375rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    .verification-benefits {
+        margin: 1rem 0;
+        padding: 1rem;
+    }
+    
+    .modal-buttons {
+        margin-top: 1.5rem;
+    }
+}
+
+/* Tablet styles */
+@media (min-width: 481px) and (max-width: 768px) {
+    .modal-content {
+        max-width: 600px;
+        padding: 2rem;
+    }
+    
+    .verification-benefits {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Desktop styles */
+@media (min-width: 769px) {
+    .modal-content {
+        max-width: 650px;
+    }
+    
+    .verification-benefits {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* ============================================
+   ACCESSIBILITY & ENHANCED FEATURES
+   ============================================ */
+
+/* Focus visibility */
+.pay-button:focus-visible,
+.cancel-button:focus-visible,
+.verify-button:focus-visible {
+    outline: 2px solid rgba(71, 85, 105, 0.6);
+    outline-offset: 2px;
+}
+
+/* Smooth transitions for all interactive elements */
+.pay-button, .cancel-button, .verify-button, .modal-content, .benefit-item, .price-highlight {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .modal-content {
+        border-width: 0.5px;
+    }
+    
+    .pay-button, 
+    .cancel-button, 
+    .verify-button {
+        border-width: 0.5px;
+    }
+    
+    .verification-benefits {
+        border-width: 0.5px;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Dark mode preference (already dark, but future-proofing) */
+@media (prefers-color-scheme: dark) {
+    /* Theme is already dark, consistent with login theme */
+}

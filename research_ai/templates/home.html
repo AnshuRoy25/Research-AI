@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Research - ResearchAI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
+    
+</head>
+<body>
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay">
+        <div class="mobile-menu">
+            <div class="mobile-menu-header">
+                <div class="logo">
+                    <img src="{{ url_for('static', filename='Media/logo.png') }}" alt="Logo">
+
+                </div>
+                <div class="company-name">
+                    <span>ResearchAI</span>
+                </div>
+                <button class="mobile-menu-close" id="mobileMenuClose">
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            <nav class="mobile-nav">
+                <a href="#home" class="mobile-nav-link">Home</a>
+                <a href="#docs" class="mobile-nav-link">Docs</a>
+                <a href="#contact" class="mobile-nav-link">Contact</a>
+                <a href="#login" onclick="window.location.href='/login-page'" class="mobile-nav-link">Login</a>
+                <a href="#signup" onclick="window.location.href='/create-page'" class="mobile-nav-link mobile-signup-btn">Sign Up</a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-left">
+            <div class="logo">
+                 <img src="{{ url_for('static', filename='Media/logo.png') }}" alt="Logo">
+
+            </div>
+            <div class="company-name">
+                <span>ResearchAI</span>
+            </div>
+        </div>
+        
+        <div class="navbar-right">
+            <a href="#home" class="nav-link">Home</a>
+            <a href="#docs" class="nav-link">Docs</a>
+            <a href="#contact" class="nav-link">Contact</a>
+            <a href="#login" onclick="window.location.href='/login-page'" class="nav-link">Login</a>
+            <a href="#signup" onclick="window.location.href='/create-page'" class="nav-link signup-btn">Sign Up</a>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="hero-section" id="home">
+        <div class="hero-background">
+            <video autoplay muted loop playsinline>
+                <source src="{{ url_for('static', filename='Media/hero.mp4') }}" type="video/mp4">
+            </video>
+        </div>
+        
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="main-header">The AI and Blockchain for Research</h1>
+                <p class="subheader">The next generation of AI research - where every answer comes with proof and every source is preserved forever.</p>
+            </div>
+            
+            <div class="hero-buttons">
+                <button class="try-demo-btn" onclick="window.location.href='/create-page'">Try Demo</button>
+                <button class="about-btn">About</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Section -->
+    <section class="demo-section" id="demo">
+        <div class="demo-background">
+            <img src="demo-background.jpg" alt="Demo Background">
+        </div> 
+
+        
+        <div class="demo-content">
+            <div class="demo-text">
+                <h2 class="demo-header">Experience verifiable AI research in 3 steps</h2>
+                <p class="demo-subheader">Ask. Verify. Trust</p>
+            </div>
+            
+            <div class="demo-video">
+                <img src="{{ url_for('static', filename='Media/demo.jpeg') }}" alt="Demo Background">
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="problem-section" id="problem">
+        <div class="problem-container">
+            <!-- Main Problem -->
+            <div class="problem-main">
+                <h1>The Truth Crisis in AI</h1>
+                <h2>We're drowning in AI answers but starving for truth</h2>
+                
+                <div class="problem-point">
+                    <div class="problem-text">
+                        <p>Every day, millions of people rely on AI systems for critical decisions – health advice, financial planning, scientific facts. Yet these systems operate like black boxes, delivering answers without showing their work. It's like having a brilliant researcher who refuses to share their sources.</p>
+                    </div>
+                    <div class="problem-image">
+                        <img src="{{ url_for('static', filename='Media/p-1.jpg') }}" alt="Person looking confused at computer screen showing AI responses without sources">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Secondary Problem -->
+            <div class="problem-secondary">
+                <h2>The Problem We're Solving</h2>
+                
+                <div class="problem-point">
+                    <div class="problem-text">
+                        <p>Misinformation fills the vacuum. When people can't verify AI responses, they either believe blindly or reject entirely. False claims spread faster than corrections. Conspiracy theories flourish where truth should be accessible. People make life-changing decisions based on information they can't verify. Trust is breaking down. The choice shouldn't be between blind faith and total rejection. We need something better: verification.</p>
+                    </div>
+                    <div class="problem-image">
+                        <img src="{{ url_for('static', filename='Media/p-2.jpg') }}" alt="Network diagram showing how false information spreads faster than corrections across social media">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section class="solution-section" id="solution">
+        <div class="solution-container">
+            <!-- Solution Header -->
+            <div class="solution-header">
+                <h1>Our Solution: Complete Source Transparency</h1>
+                <h2>No more guessing. No more blind trust. Just verifiable answers to your most important questions.</h2>
+            </div>
+            
+            <!-- Solution Features -->
+            <div class="solution-features">
+                <div class="solution-feature">
+                    <h3>Direct Citations with Instant Access</h3>
+                    <div class="solution-point">
+                        <div class="solution-text">
+                            <p>Every AI response includes clickable links to peer-reviewed research papers. When we say "studies show meditation reduces anxiety," you see exactly which studies – complete with authors, publication dates, and journal names. Click any link and immediately access the full paper that supports our statement.</p>
+                        </div>
+                        <div class="solution-image">
+                            <img src="{{ url_for('static', filename='Media/s-1.jpg') }}" alt="AI response showing clickable research paper citations with author names and publication details">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="solution-feature">
+                    <h3>Blockchain-Secured Authenticity</h3>
+                    <div class="solution-point">
+                        <div class="solution-text">
+                            <p>All research papers are stored on IPFS (InterPlanetary File System), creating permanent, tamper-proof records. Each paper receives a unique cryptographic hash – its digital fingerprint. If even one word changes, the hash changes too, making manipulation impossible.</p>
+                        </div>
+                        <div class="solution-image">
+                            <img src="{{ url_for('static', filename='Media/s-2.jpg') }}" alt="Diagram showing IPFS network with cryptographic hash verification protecting research papers">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="solution-feature">
+                    <h3>Quality-First Research Foundation</h3>
+                    <div class="solution-point">
+                        <div class="solution-text">
+                            <p>We built our platform on peer-reviewed papers from top-tier journals and respected institutions. Every source is evaluated for credibility, methodology, and relevance. We prioritize recent studies, high-impact research, and rigorous peer review processes.</p>
+                        </div>
+                        <div class="solution-image">
+                            <img src="{{ url_for('static', filename='Media/s-3.jpg') }}" alt="Collection of prestigious academic journals and research papers arranged in a professional display">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Solution Conclusion -->
+            <div class="solution-conclusion">
+                <h3>Why This Matters Now</h3>
+                <p>The problem isn't that AI is inherently untrustworthy – it's that we can't see its sources. Imagine if every AI answer came with links to the actual research it used. Imagine if you could verify every claim in seconds. Imagine if the world's scientific knowledge was finally accessible to everyone, not just academics behind paywalls.</p>
+                <h2>That's exactly what we built.</h2>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vision Section -->
+    <section class="vision-section" id="vision">
+        <div class="vision-background">
+            <img src="vision-background.jpg" alt="Vision Background">
+        </div>
+        
+        <div class="vision-content">
+            <div class="vision-text">
+                <p class="vision-paragraph">We envision a world where artificial intelligence serves as humanity's most trusted research assistant – not because we ask you to believe it, but because you can verify everything it tells you. Imagine a future where breakthrough medical research reaches patients in plain language within days of publication, where students can explore complex scientific concepts with confidence, and where every professional decision is backed by accessible, verified knowledge. We're building the infrastructure that makes scientific discovery truly democratic, breaking down the barriers between academic research and everyday understanding.</p>
+                
+                <p class="vision-paragraph">The future belongs to accountable AI – systems that don't just process information, but preserve and present human knowledge with complete transparency. By connecting artificial intelligence to the permanent, decentralized web through blockchain technology, we're creating something unprecedented: an AI that gets smarter with every verified source added, more reliable with every citation checked, and more valuable as humanity's collective knowledge grows. This isn't just about building better AI – it's about building a more informed, more connected, and more truthful world where knowledge serves everyone, not just those with access to academic institutions.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="footer-section" id="contact">
+        <div class="footer-container">
+            <!-- Documentation Part -->
+            <div class="footer-column">
+                <h3>Documentation</h3>
+                <ul class="footer-links">
+                    <li><a href="#getting-started">Getting Started</a></li>
+                    <li><a href="#api-reference">API Reference</a></li>
+                    <li><a href="#how-it-works">How It Works</a></li>
+                    <li><a href="#citation-guide">Citation Guide</a></li>
+                    <li><a href="#blockchain-security">Blockchain Security</a></li>
+                    <li><a href="#troubleshooting">Troubleshooting</a></li>
+                </ul>
+            </div>
+            
+            <!-- Social Part -->
+            <div class="footer-column">
+                <h3>Social</h3>
+                <ul class="footer-links">
+                    <li><a href="#twitter">Twitter</a></li>
+                    <li><a href="#linkedin">LinkedIn</a></li>
+                    <li><a href="#github">GitHub</a></li>
+                    <li><a href="#discord">Discord</a></li>
+                    <li><a href="#youtube">YouTube</a></li>
+                </ul>
+            </div>
+            
+            <!-- Connect with Founders -->
+            <div class="footer-founders">
+                <h3>Connect with the Founders</h3>
+                
+                <div class="founder">
+                    <span class="founder-name">Anshu Roy</span>
+                    <div class="founder-links">
+                        <a href="https://www.linkedin.com/in/anshuroy2006/">LinkedIn</a>
+                        <a href="https://github.com/AnshuRoy25">GitHub</a>
+                    </div>
+                </div>
+                
+                <div class="founder">
+                    <span class="founder-name">Aayush Dubey</span>
+                    <div class="founder-links">
+                        <a href="https://www.linkedin.com/in/aayush-dubey-19087826b/">LinkedIn</a>
+                        <a href="https://github.com/Aayushdubey05">GitHub</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='home.js') }}"></script>
+</body>
+</html>
