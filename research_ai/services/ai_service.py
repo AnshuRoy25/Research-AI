@@ -43,7 +43,7 @@ def get_response(query):
 
           # Generate response using AI model
           response = ai_client.chat.completions.create(
-              model="mistralai/mistral-small-3.2-24b-instruct:free",
+              model="agentica-org/deepcoder-14b-preview:free",
               messages=prompt
           )
 
