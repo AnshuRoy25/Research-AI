@@ -27,71 +27,46 @@ ResearchAI is a cutting-edge research assistant that combines artificial intelli
 
 ### 🔗 Revolutionary Pay-to-Verify System
 
-ResearchAI introduces a groundbreaking **pay-to-verify system** powered by **Filecoin smart contracts**. Users can now cryptographically verify AI responses by paying a small fee in testnet FIL (tFIL), ensuring that each verification is permanently recorded on the blockchain with immutable proof of authenticity.
+ResearchAI introduces a groundbreaking **pay-to-verify system** powered by **Filecoin smart contracts**. Users can cryptographically verify AI responses by paying 0.01 testnet FIL (tFIL), ensuring that each verification is permanently recorded on the blockchain with immutable proof of authenticity.
 
 ### 🛠️ Smart Contract Architecture
 
-Our verification system is built on **Filecoin's Calibration testnet** using custom smart contracts that manage payments and verification status:
+Our verification system is built on **Filecoin's Calibration testnet** using custom smart contracts:
 
-#### **Smart Contract Features:**
+#### **Key Features:**
 - **Payment Verification**: Users pay 0.01 tFIL to verify AI responses
 - **Permanent Records**: All verifications are recorded on the Filecoin blockchain
 - **Duplicate Protection**: Users who have already paid can access verified content without additional fees
 - **Transparent Pricing**: Fixed, transparent pricing with no hidden costs
 - **Immutable Proof**: Once verified, responses cannot be altered or tampered with
 
-#### **Web3 Integration Components:**
-- **MetaMask Integration**: Seamless wallet connection for payments
-- **Automatic Network Switching**: Auto-configures Filecoin Calibration testnet
-- **Smart Contract Interaction**: Direct blockchain communication for verification
-- **Payment Status Tracking**: Real-time verification status checking
-- **IPFS Gateway Access**: Secure access to verified content
+#### **Core Functions:**
+- `payForVerification(ipfsHash)`: Pay for verification access
+- `hasUserPaidForVerification(user, ipfsHash)`: Check payment status
+- `withdrawFunds()`: Owner withdraws collected payments
+- `updatePrice(newPrice)`: Owner updates verification cost
 
 ### 🔐 Verification Workflow
 
 1. **AI Response Generation**: User asks a question and receives an AI response
 2. **IPFS Hash Creation**: Response is stored on IPFS with unique content identifier
-3. **Verification Button**: "Verify" button appears with blockchain verification option
-4. **Payment Status Check**: System checks if user has already paid for this specific response
-5. **Payment Processing**: If not paid, user pays 0.01 tFIL through MetaMask
-6. **Blockchain Confirmation**: Smart contract records payment and verification
-7. **Verified Access**: User can now access the cryptographically verified response on IPFS
-8. **Permanent Record**: Verification status is permanently stored on Filecoin blockchain
+3. **Verification Check**: System checks if user has already paid for this specific response
+4. **Payment Processing**: If not paid, user pays 0.01 tFIL through MetaMask
+5. **Blockchain Confirmation**: Smart contract records payment and verification
+6. **Verified Access**: User can now access the cryptographically verified response on IPFS
+7. **Permanent Record**: Verification status is permanently stored on Filecoin blockchain
 
 ### 🛡️ Security & Trust Features
 
-#### **Cryptographic Verification:**
 - **Content Addressing**: Each response gets a unique IPFS hash that serves as both address and integrity proof
 - **Tamper Detection**: Any modification to a verified response would result in a completely different hash
 - **Blockchain Immutability**: Payment records and verification status cannot be altered
 - **Decentralized Validation**: No single point of failure or control
-
-#### **Smart Contract Security:**
-- **Transparent Logic**: All verification logic is publicly auditable on the blockchain
-- **Automated Execution**: No human intervention required for payment processing
-- **Duplicate Payment Prevention**: Users cannot be charged twice for the same verification
-- **Fail-Safe Design**: Robust error handling and recovery mechanisms
-
-### 📊 Filecoin Network Benefits
-
-#### **Decentralized Storage Architecture:**
-- **Permanent Storage**: Research papers stored on IPFS are distributed across multiple nodes
-- **Global Accessibility**: Papers accessible from anywhere in the world through IPFS network
-- **Censorship Resistance**: No central authority can remove or alter stored content
-- **Cost Efficiency**: Pay only for verification, not for storage or access
-
-#### **Lighthouse SDK Integration:**
-- **Enterprise-Grade Reliability**: Professional IPFS gateway service with high uptime
-- **API Simplicity**: Easy-to-use SDK for seamless integration
-- **Scalable Infrastructure**: Handles large volumes of research papers efficiently
-- **Developer-Friendly**: Comprehensive documentation and support
-
+- **Smart Contract Security**: Transparent, auditable logic with automated execution
 
 ## 🏗️ Project Architecture
 
-This project consists of two main components with enhanced Web3 integration:
-
-### 📁 Updated Project Structure
+### 📁 Project Structure
 
 ```
 research-ai-project/                              
@@ -115,57 +90,57 @@ research-ai-project/
 │   │   └── embedding_service.py       # Text embedding generation
 │   ├── static/
 │   │   ├── css/                       # Stylesheets
-│   │   │   ├── chat.css
-│   │   │   ├── home.css
-│   │   │   └── login-create.css
-│   │   ├── js/                        # JavaScript files
-│   │   │   ├── chat.js                # Enhanced with Web3 integration
-│   │   │   ├── web3-integration.js    # Web3 & smart contract logic
-│   │   │   ├── create.js
-│   │   │   ├── home.js
-│   │   │   └── login.js
+│   │   ├── js/                        # JavaScript files (with Web3 integration)
 │   │   └── Media/                     # Images and videos
 │   └── templates/                     # HTML templates
-│       ├── chat.html
-│       ├── create.html
-│       ├── home.html
-│       └── login.html
 │
-└── ADMIN/                             # 🛠️ Administrative System (Owner-Only)
-    ├── admin.py                       # Main PDF processing script
-    ├── requirements.txt               # Admin-specific dependencies
-    ├── .env.example                   # Admin environment variables template
-    ├── PDFS/                          # Place PDF files here for processing
-    └── Services/
-        ├── adding_pdfs.py             # PDF file discovery
-        ├── delete_all_mongo.py        # Database cleanup utility
-        ├── get_embeddings.py          # Hugging Face embeddings
-        ├── pdf_to_text.py             # Text extraction with OCR
-        └── upload_to_ipfs.py          # Lighthouse IPFS upload
+├── ADMIN/                             # 🛠️ Administrative System (Owner-Only)
+│   ├── admin.py                       # Main PDF processing script
+│   ├── requirements.txt               # Admin-specific dependencies
+│   ├── .env.example                   # Admin environment variables template
+│   ├── PDFS/                          # Place PDF files here for processing
+│   └── Services/
+│       ├── adding_pdfs.py             # PDF file discovery
+│       ├── delete_all_mongo.py        # Database cleanup utility
+│       ├── get_embeddings.py          # Hugging Face embeddings
+│       ├── pdf_to_text.py             # Text extraction with OCR
+│       └── upload_to_ipfs.py          # Lighthouse IPFS upload
+│  
+└── contracts/                         # 🔐 Smart Contracts (Blockchain)
+    ├── IPFSPayment.sol                # Pay-to-verify smart contract
+    ├── README.md                      # Contract documentation
+    └── deployment/                    # Contract deployment configs
+        └──contract-config.json        # Deployed contract addresses and abi format
+        
 ```
 
 ## 🚀 Quick Start Guide
 
 ### For Regular Users (Running the Application)
 
-1. **Install MetaMask**: Ensure you have MetaMask extension installed
-2. **Get testnet FIL**: Obtain tFIL from [Filecoin Calibration faucet](https://faucet.calibration.fildev.network/)
-3. **Navigate to the main application**:
+1. **Install MetaMask** and get testnet FIL from [Filecoin Calibration faucet](https://faucet.calibration.fildev.network/)
+2. **Navigate to the main application**:
    ```bash
    cd research_ai
+   pip install -r requirements.txt
+   cp .env.example .env
+   # Edit .env with your API keys and credentials
+   python app.py
    ```
-4. **Follow the setup instructions** in `research_ai/README.md`
-5. **Access the application** at `http://localhost:5000`
-6. **Connect MetaMask** when prompted for verification features
+3. **Access the application** at `http://localhost:5000`
+4. **Connect MetaMask** when prompted for verification features
 
 ### For Administrators (Processing Research Papers)
 
 1. **Navigate to the admin system**:
    ```bash
    cd ADMIN
+   pip install -r requirements.txt
+   cp .env.example .env
+   # Edit .env with your API keys
+   # Place PDF files in PDFS/ folder
+   python admin.py
    ```
-2. **Follow the setup instructions** in `ADMIN/README.md`
-3. **Process PDFs** to populate the research database
 
 ## 🎯 How It Works
 
@@ -177,7 +152,6 @@ research-ai-project/
 5. **Connect MetaMask** → Link your wallet for blockchain verification
 6. **Pay to Verify** → Pay 0.01 tFIL to cryptographically verify responses
 7. **Access Verified Content** → View tamper-proof responses on IPFS
-8. **Continue Research** → Maintain context across conversation sessions
 
 ### For Administrators
 1. **Collect Papers** → Gather peer-reviewed research papers (PDF format)
@@ -188,35 +162,23 @@ research-ai-project/
 
 ## 🔧 Technology Stack
 
-### Web3 & Blockchain (NEW)
-- **Filecoin Calibration Testnet**: Smart contract deployment and execution
-- **MetaMask Integration**: Wallet connection and transaction signing
-- **Web3.js**: Blockchain interaction and smart contract communication
-- **Smart Contracts**: Verification payment and status management
-- **IPFS Gateways**: Secure access to verified content
-
 ### AI & Machine Learning
 - **OpenRouter**: Access to Mistral 7B and other language models
 - **Hugging Face**: Sentence transformers for semantic search
 - **Vector Search**: MongoDB vector search for finding relevant papers
 
-### Blockchain & Storage
+### Web3 & Blockchain
+- **Filecoin Calibration Testnet**: Smart contract deployment and execution
+- **MetaMask Integration**: Wallet connection and transaction signing
+- **Web3.js**: Blockchain interaction and smart contract communication
 - **IPFS**: Decentralized file storage via Lighthouse
-- **Cryptographic Hashing**: Document integrity verification
-- **Permanent Storage**: Tamper-proof research paper preservation
-- **Smart Contract Verification**: Blockchain-secured verification system
+- **Solidity**: Smart contract development (^0.8.19)
 
-### Backend
+### Backend & Frontend
 - **Flask**: Python web framework
 - **MongoDB**: NoSQL database with vector search capabilities
-- **PyMongo**: MongoDB Python driver
-- **bcrypt**: Password hashing and security
-
-### Frontend
 - **Vanilla JavaScript**: Interactive user interface with Web3 integration
 - **CSS3**: Modern styling and responsive design
-- **HTML5**: Semantic markup and accessibility
-- **Web3.js**: Blockchain interaction library
 
 ## 📋 Prerequisites
 
@@ -229,48 +191,9 @@ research-ai-project/
 - MetaMask browser extension
 - Filecoin Calibration testnet tFIL
 
-### Web3 Requirements (NEW)
-- MetaMask wallet with Filecoin Calibration testnet configured
-- testnet FIL (tFIL) for verification payments
-- Modern web browser with Web3 support
-
 ### Additional Dependencies (Admin Only)
 - Tesseract OCR (for text extraction from scanned PDFs)
 - Poppler (for PDF to image conversion)
-
-## 🛠️ Installation & Setup
-
-### 1. Clone the Repository
-```bash
-git clone <repository-url>
-cd research-ai-project
-```
-
-### 2. Set Up the Main Application
-```bash
-cd research_ai
-pip install -r requirements.txt
-cp .env.example .env
-# Edit .env with your API keys and credentials
-python app.py
-```
-
-### 3. Set Up Web3 (NEW)
-1. Install MetaMask browser extension
-2. Configure Filecoin Calibration testnet in MetaMask
-3. Get testnet FIL from the faucet
-4. Deploy smart contract (admin only)
-5. Update contract address in `web3-integration.js`
-
-### 4. Set Up Admin System (Optional - Administrators Only)
-```bash
-cd ../ADMIN
-pip install -r requirements.txt
-cp .env.example .env
-# Edit .env with your API keys
-# Place PDF files in PDFS/ folder
-python admin.py
-```
 
 ## 🔐 Environment Variables
 
@@ -289,7 +212,7 @@ MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/database
 HF_API_KEY=hf_your-huggingface-token-here
 ```
 
-### Web3 Configuration (NEW)
+### Web3 Configuration
 ```javascript
 // In web3-integration.js
 const CONTRACT_ADDRESS = "0xYourDeployedContractAddress";
@@ -300,40 +223,19 @@ const FILECOIN_TESTNET_CONFIG = {
 };
 ```
 
-## 🌐 API Endpoints
-
-### Authentication & User Management
-- `POST /create-account` - Create new user account
-- `POST /login-account` - User authentication
-- `GET /login-page` - Login interface
-- `GET /create-page` - Registration interface
-
-### Research & Chat
-- `POST /chat` - Submit research queries and get AI responses **with IPFS hashes**
-- `POST /newsession` - Create new conversation session
-- `GET /onload-check` - Load recent session data with verification status
-- `GET /load-sessions` - Retrieve all user sessions
-- `POST /load-session-chats` - Load specific conversation history with IPFS links
-
-### Navigation
-- `GET /` - Project homepage and landing page
-- `GET /home-page` - Main chat interface with Web3 integration
-
 ## 💰 Verification Pricing
 
 ### Current Pricing (Testnet)
 - **Verification Cost**: 0.01 tFIL per response
 - **Network**: Filecoin Calibration Testnet
 - **Payment Method**: MetaMask wallet
-- **Refund Policy**: No refunds for successful verifications
 - **Duplicate Protection**: No additional charges for already-verified content
 
 ### Getting testnet FIL
 1. Visit [Filecoin Calibration Faucet](https://faucet.calibration.fildev.network/)
 2. Connect your MetaMask wallet
 3. Request testnet FIL
-4. Wait for confirmation
-5. Start verifying responses!
+4. Start verifying responses!
 
 ## 🤝 Contributing
 
@@ -360,7 +262,7 @@ We welcome contributions from the community! Here's how you can help:
 - **Input Validation**: Protection against injection attacks
 - **HTTPS Ready**: Secure communication protocols
 
-### Blockchain Security (NEW)
+### Blockchain Security
 - **Smart Contract Auditing**: Thoroughly tested verification logic
 - **Payment Security**: Secure MetaMask transaction handling
 - **Private Key Protection**: Never store or transmit private keys
@@ -381,7 +283,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ### Founders & Core Developers
 - **Anshu Roy** - [LinkedIn](https://www.linkedin.com/in/anshuroy2006/) | [GitHub](https://github.com/AnshuRoy25)
 - **Aayush Dubey** - [LinkedIn](https://www.linkedin.com/in/aayush-dubey-19087826b/) | [GitHub](https://github.com/Aayushdubey05)
-
 
 ## 🌟 Vision Statement
 

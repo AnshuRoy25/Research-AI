@@ -1,0 +1,70 @@
+{
+  "contractAddress": "0xfbc8ee7d9064c534d9be34ce75d542726d1f2fd1",
+  "network": {
+    "name": "Filecoin Calibration",
+    "chainId": "0x4cb2f",
+    "rpcUrl": "https://api.calibration.node.glif.io/rpc/v1",
+    "blockExplorerUrl": "https://calibration.filfox.info/en",
+    "currency": {
+      "name": "testnet FIL",
+      "symbol": "tFIL",
+      "decimals": 18
+    }
+  },
+  "verificationPrice": "0.01",
+  "ipfsGateway": "https://gateway.lighthouse.storage/ipfs/",
+  "abi": [
+    {
+      "inputs": [{"internalType": "string", "name": "ipfsHash", "type": "string"}],
+      "name": "payForVerification",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {"internalType": "address", "name": "user", "type": "address"},
+        {"internalType": "string", "name": "ipfsHash", "type": "string"}
+      ],
+      "name": "hasUserPaidForVerification",
+      "outputs": [{"internalType": "bool", "name": "", "type": "bool"}],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "verificationPrice",
+      "outputs": [{"internalType": "uint256", "name": "", "type": "uint256"}],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [{"internalType": "address", "name": "", "type": "address"}],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "withdrawFunds",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [{"internalType": "uint256", "name": "newPrice", "type": "uint256"}],
+      "name": "updatePrice",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getBalance",
+      "outputs": [{"internalType": "uint256", "name": "", "type": "uint256"}],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ]
+}
